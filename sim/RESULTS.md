@@ -15,10 +15,10 @@ the whale run the two groups do not start level.
 | scenario | supply after 60d | burned | a stamper's balance | a sleeper's balance |
 | --- | --- | --- | --- | --- |
 | Ghost town: nobody ever stamps | -70.24% | 7,024 ROT | no one | 1,000 to 298 ROT (-70.2%) |
-| Full participation: everyone stamps every epoch | -3.79% | 427 ROT | 1,000 to 938 ROT (-6.2%) | no one |
-| Half awake: five stamp, five sleep | -8.09% | 832 ROT | 1,000 to 1,476 ROT (+47.6%) | 1,000 to 298 ROT (-70.2%) |
-| Sleeping whale: one 100x holder never stamps | -11.66% | 12,747 ROT | 1,000 to 6,909 ROT (+590.9%) | 100,000 to 29,755 ROT (-70.2%) |
-| Late converts: two dead epochs, then everyone wakes up | -27.15% | 2,715 ROT | 1,000 to 714 ROT (-28.6%) | no one |
+| Full participation: everyone stamps every epoch | -3.78% | 426 ROT | 1,000 to 936 ROT (-6.4%) | no one |
+| Half awake: five stamp, five sleep | -8.08% | 831 ROT | 1,000 to 1,469 ROT (+46.9%) | 1,000 to 298 ROT (-70.2%) |
+| Sleeping whale: one 100x holder never stamps | -11.64% | 12,731 ROT | 1,000 to 6,848 ROT (+584.8%) | 100,000 to 29,755 ROT (-70.2%) |
+| Late converts: two dead epochs, then everyone wakes up | -27.15% | 2,715 ROT | 1,000 to 713 ROT (-28.7%) | no one |
 
 ## Scenario by scenario
 
@@ -40,9 +40,9 @@ Rot has nobody to pay, so every rotted token burns. This is the scenario that ki
 
 No rot at all, because nobody is ever unshielded. The only supply change is the stamp cost, which burns. $ROT becomes a plain deflationary token.
 
-- Supply: 9,950 to 9,573 ROT (-3.79%)
-- Burned over the run: 427 ROT
-- 10 stampers: 1,000 to 938 ROT (-6.2%)
+- Supply: 9,950 to 9,574 ROT (-3.78%)
+- Burned over the run: 426 ROT
+- 10 stampers: 1,000 to 936 ROT (-6.4%)
 - 0 sleepers: 0 to 0 ROT (+0.0%)
 - Longest streak reached: 9 epochs
 
@@ -54,9 +54,9 @@ No rot at all, because nobody is ever unshielded. The only supply change is the 
 
 The intended steady state. The sleepers fund the stampers and the gap between the two groups widens every epoch.
 
-- Supply: 9,975 to 9,168 ROT (-8.09%)
-- Burned over the run: 832 ROT
-- 5 stampers: 1,000 to 1,476 ROT (+47.6%)
+- Supply: 9,975 to 9,169 ROT (-8.08%)
+- Burned over the run: 831 ROT
+- 5 stampers: 1,000 to 1,469 ROT (+46.9%)
 - 5 sleepers: 1,000 to 298 ROT (-70.2%)
 - Longest streak reached: 9 epochs
 
@@ -68,9 +68,9 @@ The intended steady state. The sleepers fund the stampers and the gap between th
 
 A large passive holder is the best thing that can happen to the active ones. The whale's rot is the crowd's income.
 
-- Supply: 108,955 to 96,253 ROT (-11.66%)
-- Burned over the run: 12,747 ROT
-- 9 stampers: 1,000 to 6,909 ROT (+590.9%)
+- Supply: 108,955 to 96,269 ROT (-11.64%)
+- Burned over the run: 12,731 ROT
+- 9 stampers: 1,000 to 6,848 ROT (+584.8%)
 - 1 sleepers: 100,000 to 29,755 ROT (-70.2%)
 - Longest streak reached: 9 epochs
 
@@ -84,7 +84,7 @@ Burn-heavy at the start because there is nobody to pay, then the supply flattens
 
 - Supply: 10,000 to 7,285 ROT (-27.15%)
 - Burned over the run: 2,715 ROT
-- 10 stampers: 1,000 to 714 ROT (-28.6%)
+- 10 stampers: 1,000 to 713 ROT (-28.7%)
 - 0 sleepers: 0 to 0 ROT (+0.0%)
 - Longest streak reached: 7 epochs
 

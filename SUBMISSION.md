@@ -154,7 +154,7 @@ scenarios, and a browser model that lets the token page fast-forward the economy
 without touching a chain. Shared test vectors keep all three honest; cargo test
 asserts them, and the page shows a badge when its model agrees.
 
-Sixty simulated days, half the holders stamping: stampers +47.6%, sleepers
+Sixty simulated days, half the holders stamping: stampers +46.9%, sleepers
 −70.2%, supply −8.1%. With nobody stamping at all, nothing breaks — the rot just
 burns. There is no state in which this token needs rescuing.
 
