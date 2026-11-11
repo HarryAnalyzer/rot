@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10">
+<rect width="760" height="300" fill="#0b0b0a"/>
+<text x="64" y="18" fill="#e7e5e4" font-size="12">Full participation: everyone stamps every epoch - who holds what</text>
+<line x1="64" y1="264.0" x2="610" y2="264.0" stroke="#27272a" stroke-width="1"/>
+<text x="58" y="267.0" fill="#71717a" text-anchor="end">0</text>
+<line x1="64" y1="205.0" x2="610" y2="205.0" stroke="#27272a" stroke-width="1"/>
+<text x="58" y="208.0" fill="#71717a" text-anchor="end">2.7k</text>
+<line x1="64" y1="146.0" x2="610" y2="146.0" stroke="#27272a" stroke-width="1"/>
+<text x="58" y="149.0" fill="#71717a" text-anchor="end">5.4k</text>
+<line x1="64" y1="87.0" x2="610" y2="87.0" stroke="#27272a" stroke-width="1"/>
+<text x="58" y="90.0" fill="#71717a" text-anchor="end">8.1k</text>
+<line x1="64" y1="28.0" x2="610" y2="28.0" stroke="#27272a" stroke-width="1"/>
+<text x="58" y="31.0" fill="#71717a" text-anchor="end">10.7k</text>
+<line x1="64.0" y1="28" x2="64.0" y2="264" stroke="#1c1917" stroke-width="1"/>
+<text x="64.0" y="278" fill="#52525b" text-anchor="middle">d0</text>
+<line x1="127.7" y1="28" x2="127.7" y2="264" stroke="#1c1917" stroke-width="1"/>
+<text x="127.7" y="278" fill="#52525b" text-anchor="middle">d7</text>
+<line x1="191.4" y1="28" x2="191.4" y2="264" stroke="#1c1917" stroke-width="1"/>
+<text x="191.4" y="278" fill="#52525b" text-anchor="middle">d14</text>
+<line x1="255.1" y1="28" x2="255.1" y2="264" stroke="#1c1917" stroke-width="1"/>
+<text x="255.1" y="278" fill="#52525b" text-anchor="middle">d21</text>
+<line x1="318.8" y1="28" x2="318.8" y2="264" stroke="#1c1917" stroke-width="1"/>
+<text x="318.8" y="278" fill="#52525b" text-anchor="middle">d28</text>
+<line x1="382.5" y1="28" x2="382.5" y2="264" stroke="#1c1917" stroke-width="1"/>
+<text x="382.5" y="278" fill="#52525b" text-anchor="middle">d35</text>
+<line x1="446.2" y1="28" x2="446.2" y2="264" stroke="#1c1917" stroke-width="1"/>
+<text x="446.2" y="278" fill="#52525b" text-anchor="middle">d42</text>
+<line x1="509.9" y1="28" x2="509.9" y2="264" stroke="#1c1917" stroke-width="1"/>
+<text x="509.9" y="278" fill="#52525b" text-anchor="middle">d49</text>
+<line x1="573.6" y1="28" x2="573.6" y2="264" stroke="#1c1917" stroke-width="1"/>
+<text x="573.6" y="278" fill="#52525b" text-anchor="middle">d56</text>
+<polyline points="64.0,45.5 73.1,45.5 82.2,45.5 91.3,45.5 100.4,45.5 109.5,45.5 118.6,45.5 127.7,50.9 136.8,50.9 145.9,50.9 155.0,50.9 164.1,50.9 173.2,50.9 182.3,50.9 191.4,52.1 200.5,52.0 209.6,52.0 218.7,52.0 227.8,52.0 236.9,52.0 246.0,52.0 255.1,53.1 264.2,53.0 273.3,53.0 282.4,53.0 291.5,53.0 300.6,53.0 309.7,53.0 318.8,54.1 327.9,54.1 337.0,54.1 346.1,54.1 355.2,54.1 364.3,54.1 373.4,54.1 382.5,55.1 391.6,55.1 400.7,55.1 409.8,55.1 418.9,55.1 428.0,55.1 437.1,55.1 446.2,56.1 455.3,56.1 464.4,56.1 473.5,56.1 482.6,56.1 491.7,56.1 500.8,56.1 509.9,57.1 519.0,57.1 528.1,57.1 537.2,57.1 546.3,57.1 555.4,57.1 564.5,57.1 573.6,58.1 582.7,58.1 591.8,58.1 600.9,58.1 610.0,58.1" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linejoin="round"/>
+<line x1="618" y1="37" x2="634" y2="37" stroke="#16a34a" stroke-width="2"/>
+<text x="638" y="40" fill="#a1a1aa">held by stamped accounts</text>
+<polyline points="64.0,264.0 73.1,264.0 82.2,264.0 91.3,264.0 100.4,264.0 109.5,264.0 118.6,264.0 127.7,264.0 136.8,264.0 145.9,264.0 155.0,264.0 164.1,264.0 173.2,264.0 182.3,264.0 191.4,264.0 200.5,264.0 209.6,264.0 218.7,264.0 227.8,264.0 236.9,264.0 246.0,264.0 255.1,264.0 264.2,264.0 273.3,264.0 282.4,264.0 291.5,264.0 300.6,264.0 309.7,264.0 318.8,264.0 327.9,264.0 337.0,264.0 346.1,264.0 355.2,264.0 364.3,264.0 373.4,264.0 382.5,264.0 391.6,264.0 400.7,264.0 409.8,264.0 418.9,264.0 428.0,264.0 437.1,264.0 446.2,264.0 455.3,264.0 464.4,264.0 473.5,264.0 482.6,264.0 491.7,264.0 500.8,264.0 509.9,264.0 519.0,264.0 528.1,264.0 537.2,264.0 546.3,264.0 555.4,264.0 564.5,264.0 573.6,264.0 582.7,264.0 591.8,264.0 600.9,264.0 610.0,264.0" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round"/>
+<line x1="618" y1="51" x2="634" y2="51" stroke="#dc2626" stroke-width="2"/>
+<text x="638" y="54" fill="#a1a1aa">held by idle accounts</text>
+<text x="64" y="294" fill="#52525b">ROT</text>
+</svg>

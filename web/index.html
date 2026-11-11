@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>$ROT - the coin that spoils</title>
+    <meta
+      name="description"
+      content="A NEP-141 memecoin on NEAR whose balance rots unless you stamp it. Everything that rots is paid to the holders who did."
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#129443;</text></svg>"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <h1>$ROT</h1>
+        <p class="tagline">The coin that spoils.</p>
+      </div>
+      <div class="header-side">
+        <div id="mathBadge" class="badge checking">checking the math…</div>
+        <label class="pick">
+          <span>deployment</span>
+          <select id="deployment"></select>
+        </label>
+        <div class="contract">
+          <a id="contractLink" href="#" target="_blank" rel="noopener"
+            ><span id="contractId">…</span></a
+          >
+          <span id="rpcState" class="rpc">connecting…</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="pitch">
+      <p>
+        An untouched balance of $ROT loses <strong id="pitchRot">2%</strong> of
+        itself every day. Everything that rots is paid out to the holders who
+        <strong>stamped</strong> their tokens that week. Stop participating and
+        your balance quietly drains into the pockets of the people who did.
+      </p>
+      <p class="muted">
+        In 1932 the Austrian town of Wörgl issued money that lost value unless
+        the holder bought a stamp and stuck it to the note. Hoarding became
+        expensive, the notes changed hands fast, and a town with 30%
+        unemployment built a bridge. Economists call it demurrage. Austria's
+        central bank banned it in 1933. This is that, as a memecoin, with the
+        stamp enforced by a contract instead of a town clerk.
+      </p>
+    </section>
+
+    <section class="clock-row">
+      <div class="clock-box">
+        <span class="k">day</span><span class="v" id="cDay">–</span>
+      </div>
+      <div class="clock-box">
+        <span class="k">epoch</span><span class="v" id="cEpoch">–</span>
+      </div>
+      <div class="clock-box wide">
+        <span class="k">next rot tick</span>
+        <span class="v" id="cTick">–</span>
+        <div class="bar"><i id="cTickBar"></i></div>
+      </div>
+      <div class="clock-box wide">
+        <span class="k">next epoch</span>
+        <span class="v" id="cEpochIn">–</span>
+        <div class="bar"><i id="cEpochBar"></i></div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------- -->
+    <h2>Watch a balance rot</h2>
+    <section class="panel">
+      <div class="row">
+        <input
+          id="accountInput"
+          type="text"
+          spellcheck="false"
+          placeholder="your-account.testnet"
+          autocomplete="off"
+        />
+        <button id="accountGo" class="primary">look up</button>
+      </div>
+      <div id="accountEmpty" class="muted small">
+        Type any account that holds $ROT. The balance below is recomputed from
+        the chain's own figures plus the clock, which is exactly what
+        <code>ft_balance_of</code> does: nobody has to poke anything for it to
+        fall.
+      </div>
+      <div id="accountCard" class="hidden">
+        <div class="balance-line">
+          <span id="balBig">0</span><span class="unit">ROT</span>
+          <span id="balShield" class="pill"></span>
+        </div>
+        <div class="kv-grid">
+          <div><span class="k">on chain, last written</span><b id="aSettled">–</b></div>
+          <div><span class="k">rot owed, not yet taken</span><b id="aPending" class="bad">–</b></div>
+          <div><span class="k">lost tomorrow if idle</span><b id="aPerDay" class="bad">–</b></div>
+          <div><span class="k">shield left</span><b id="aShield">–</b></div>
+          <div><span class="k">streak</span><b id="aStreak">–</b></div>
+          <div><span class="k">compost you can claim</span><b id="aClaim" class="good">–</b></div>
+        </div>
+        <div id="aStamps" class="stamps"></div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------- -->
+    <h2>The token</h2>
+    <section class="stats" id="stats"></section>
+
+    <!-- ----------------------------------------------------------------- -->
+    <h2>Epochs</h2>
+    <p class="muted small">
+      Rot that happens during an epoch is split between the holders who stamped
+      <em>before</em> it started. That is why weight is always locked in before
+      the compost arrives: there is no way to watch a heap grow and then buy a
+      share of it. An epoch with no stampers burns its rot instead.
+    </p>
+    <section class="epochs" id="epochs"></section>
+
+    <!-- ----------------------------------------------------------------- -->
+    <h2>Holders</h2>
+    <p class="muted small">
+      Sorted by what they hold right now. <b>Poke</b> settles an account,
+      forcing the rot it owes into this epoch's heap - anyone may do it to
+      anyone, and if you are stamped this epoch, every sleeper you poke pays
+      you. The column on the right is how much each one is sitting on.
+    </p>
+    <section class="panel">
+      <div class="row between">
+        <label class="chk">
+          <input type="checkbox" id="onlyRotting" />
+          <span>only show accounts that owe rot</span>
+        </label>
+        <button id="copyPoke" class="ghost">copy a poke command for the top 20</button>
+      </div>
+      <div class="table-wrap">
+        <table id="holders">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>account</th>
+              <th class="num">balance</th>
+              <th class="num">rot owed</th>
+              <th>shield</th>
+              <th class="num">streak</th>
+              <th class="num">claimable</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------- -->
+    <h2>Every mint and burn</h2>
+    <p class="muted small">
+      Straight out of contract state, newest first: faucet claims, stamps
+      (burns), rot landing in the compost, claims, and sweeps.
+    </p>
+    <section class="panel">
+      <div class="table-wrap">
+        <table id="events">
+          <thead>
+            <tr>
+              <th>day</th>
+              <th>what</th>
+              <th>account</th>
+              <th class="num">amount</th>
+              <th>note</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------- -->
+    <h2>Fast-forward the economy</h2>
+    <p class="muted small">
+      Sixty days of $ROT, in your browser, using the same arithmetic the
+      contract runs. Move the sliders and see who ends up with the tokens. This
+      is how the launch parameters were chosen; the full write-up with charts is
+      in <code>sim/RESULTS.md</code>.
+    </p>
+    <section class="panel">
+      <div class="sliders">
+        <label>
+          rot per day <b id="pvRot">2.0%</b>
+          <input id="pRot" type="range" min="10" max="1000" step="10" value="200" />
+        </label>
+        <label>
+          stamp cost <b id="pvCost">0.5%</b>
+          <input id="pCost" type="range" min="0" max="500" step="10" value="50" />
+        </label>
+        <label>
+          who stamps <b id="pvPart">50%</b>
+          <input id="pPart" type="range" min="0" max="100" step="10" value="50" />
+        </label>
+        <label>
+          stamp lasts <b id="pvDays">7 days</b>
+          <input id="pDays" type="range" min="1" max="21" step="1" value="7" />
+        </label>
+        <label>
+          a whale holding <b id="pvWhale">0x</b> extra, never stamping
+          <input id="pWhale" type="range" min="0" max="99" step="1" value="0" />
+        </label>
+      </div>
+      <div class="sim-summary" id="simSummary"></div>
+      <div class="charts">
+        <div id="chartSupply"></div>
+        <div id="chartGroups"></div>
+      </div>
+      <button id="pReset" class="ghost">back to the launch parameters</button>
+    </section>
+
+    <!-- ----------------------------------------------------------------- -->
+    <h2>Do something</h2>
+    <p class="muted small">
+      $ROT has five verbs and no admin. Paste any of these into a terminal with
+      <a href="https://github.com/near/near-cli-rs" target="_blank" rel="noopener"
+        >near-cli-rs</a
+      >
+      installed. Nothing here is a special endpoint: these are the whole
+      interface.
+    </p>
+    <section class="cmds" id="cmds"></section>
+
+    <!-- ----------------------------------------------------------------- -->
+    <h2>Rules</h2>
+    <section class="rules">
+      <ol>
+        <li>
+          <b>Rot.</b> An unstamped balance loses
+          <span class="hl" id="rRot">2%</span> of itself every day, compounding.
+          <code>ft_balance_of</code> is a function of the clock.
+        </li>
+        <li>
+          <b>Stamp.</b> <code>stamp()</code> burns
+          <span class="hl" id="rCost">0.5%</span> of your balance, shields the
+          rest for <span class="hl" id="rDays">7</span> days, and registers your
+          balance as weight in the <em>next</em> epoch.
+        </li>
+        <li>
+          <b>Compost.</b> Everything that rots goes to the holders who stamped
+          for that epoch, pro rata. If nobody stamped, it burns.
+        </li>
+        <li>
+          <b>Poke.</b> Rot only moves when an account is settled, and anyone may
+          settle anyone. The economy needs no keeper and no dev.
+        </li>
+        <li>
+          <b>Claim.</b> Your payout is capped by what you
+          <em>still hold</em>, so stamping a balance and moving it away earns
+          nothing.
+        </li>
+      </ol>
+      <p class="muted">
+        No owner. No mint. No pause. No setter of any kind. Every parameter was
+        a constructor argument and is readable above via
+        <code>get_config</code>. The contract account holds no access keys, so
+        not even the deployer can redeploy it. Supply can shrink - stamp costs,
+        rot with no stampers, and unclaimed compost all burn - and can never
+        grow.
+      </p>
+    </section>
+
+    <footer>
+      <p>
+        Built at NEAR HACKATHON ·
+        <a
+          id="repoLink"
+          href="https://github.com/HarryAnalyzer/rot"
+          target="_blank"
+          rel="noopener"
+          >source</a
+        >
+        · the whole ruleset is ~150 lines in
+        <code>src/math.rs</code>
+      </p>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="vectors.js"></script>
+    <script src="model.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
