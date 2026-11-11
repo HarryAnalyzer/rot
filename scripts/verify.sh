@@ -14,9 +14,16 @@ REPO="${1:-https://github.com/HarryAnalyzer/rot}"
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 
-echo "=== installing git and python"
-apt-get update -qq >/dev/null 2>&1 || true
-apt-get install -y -qq git python3 >/dev/null 2>&1 || true
+missing=()
+command -v git >/dev/null 2>&1 || missing+=(git)
+command -v python3 >/dev/null 2>&1 || missing+=(python3)
+if [ ${#missing[@]} -gt 0 ]; then
+  echo "=== installing ${missing[*]}"
+  apt-get update -qq >/dev/null 2>&1 || true
+  apt-get install -y -qq "${missing[@]}" >/dev/null 2>&1 || true
+else
+  echo "=== git and python3 already present"
+fi
 
 echo "=== cloning $REPO"
 git clone -q "$REPO" "$WORK/repo"
