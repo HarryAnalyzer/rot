@@ -1,0 +1,15 @@
+# Shell scripts must keep Unix line endings wherever they are checked out.
+# Git for Windows defaults to core.autocrlf=true, which would hand a judge on
+# Windows a verify.sh full of carriage returns that bash refuses to run.
+*.sh text eol=lf
+
+# PowerShell is happy either way; keep it native so the scripts read normally
+# in a Windows editor.
+*.ps1 text eol=crlf
+
+# Everything else: normalised to LF in the repository.
+* text=auto eol=lf
+
+*.wasm binary
+*.png binary
+*.webp binary
