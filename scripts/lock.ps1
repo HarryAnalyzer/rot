@@ -23,7 +23,9 @@ param(
   [switch]$Yes
 )
 
-$ErrorActionPreference = 'Stop'
+# near-cli writes to stderr even when it succeeds; under 'Stop' that would
+# abort the script. Each call checks $LASTEXITCODE instead.
+$ErrorActionPreference = 'Continue'
 
 $targets = @()
 if ($Which -in @('both', 'real')) { $targets += "rot.$Master" }

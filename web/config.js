@@ -1,4 +1,4 @@
-// Which contracts the page talks to.
+﻿// Which contracts the page talks to.
 //
 // Two deployments of the same wasm, differing only in the length of a "day":
 //

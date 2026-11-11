@@ -20,18 +20,29 @@ automatically — every outward step is yours.
 
 Filled in:
 
-- master account: `<you>.testnet`
-- real contract: `rot.<you>.testnet`
-- demo contract: `rot-demo.<you>.testnet`
-- repo: `https://github.com/<user>/rot`
-- page: `https://<user>.github.io/rot/` (or wherever you host `web/`)
+- master account: `worgl.testnet`
+- real contract: `rot.worgl.testnet` — 2%/day, 7-day stamp, 7-day epochs
+- demo contract: `rot-demo.worgl.testnet` — 10%/day, 1 minute per day
+- repo: <https://github.com/HarryAnalyzer/rot>
+- page: served from `web/`; `python -m http.server 8787 --directory web`
+
+Verified on 12 Nov 2026: 72/72 tests pass, both contracts deployed,
+`audit_supply` returns `true` on each, and a full faucet → stamp → rot → poke
+→ claim cycle ran live on the demo contract. A stamper who kept up ended at
+98.6% of their starting balance; the sleeper beside them fell to 53%.
 
 ---
 
 ## 2. The demo video
 
 60–90 seconds, screen recording, no intro, no architecture slides. Run
-`scripts/demo.ps1` beside the open page and record both.
+`scripts/demo.ps1 -Master worgl.testnet` beside the open page and record both.
+
+The script aligns itself to an epoch boundary and then waits on the contract's
+own clock, so a full cycle takes **8–11 minutes** of wall time. Record the
+whole thing and cut it down, or record the four moments below. The long waits
+are where the page earns its keep: the countdown runs, and balances drop on
+their own.
 
 The beat sheet:
 

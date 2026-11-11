@@ -37,7 +37,11 @@ param(
   [string]$Network = 'testnet'
 )
 
-$ErrorActionPreference = 'Stop'
+# near-cli writes its transaction summaries to stderr. Under 'Stop', PowerShell
+# turns any native stderr line into a terminating NativeCommandError and kills
+# the script mid-deploy, so every near call below is checked by $LASTEXITCODE
+# instead.
+$ErrorActionPreference = 'Continue'
 $root = Split-Path -Parent $PSScriptRoot
 Push-Location $root
 
@@ -124,9 +128,15 @@ function New-InitArgs($dayMs, $rotBps, $stampDays, $epochDays, $claimWindow) {
 
 function Deploy-Rot($account, $argsJson, $label) {
   Step "Deploying $label to $account"
+  # The init args are handed over base64-encoded. Windows PowerShell does not
+  # escape the double quotes inside a JSON string when it hands an argument to
+  # a native executable, so `json-args` arrives at near-cli split into pieces
+  # the moment the JSON contains a quoted value with a space in it. Base64 is
+  # quote-free and space-free, so it survives the trip intact.
+  $b64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($argsJson))
   near contract deploy $account `
     use-file $wasm `
-    with-init-call new json-args $argsJson `
+    with-init-call new base64-args $b64 `
     prepaid-gas '100 TGas' attached-deposit '0 NEAR' `
     network-config $Network sign-with-keychain send
   if ($LASTEXITCODE -ne 0) { throw "deploy to $account failed" }

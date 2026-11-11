@@ -213,6 +213,18 @@ Written before the code, kept honest afterwards. Each of these has a test.
   judge can try the thing without being airdropped by us; a real launch would
   distribute through meme.cooking instead. The `storage_deposit` requirement
   puts a small NEAR cost on each sybil, and nothing more.
+- **Even a perfect holder rots one day per epoch.** A stamp bought in epoch N
+  shields you for `stamp_days` and earns from epoch N+1. Since the shield and
+  the epoch are the same length, it lapses exactly as the epoch you are earning
+  from opens — so the diligent holder's re-stamp always lands one day late and
+  pays one day of rot. Stamping a day early instead keeps the shield unbroken
+  but registers in epoch N again, which buys no weight in N+2. You cannot have
+  both. At 2% a day that is a ~2% tax per epoch against a sleeper's ~13%, and
+  the compost normally covers it several times over, but it is a real cost and
+  the demo run shows it: three stamps across two epochs left the stamper at
+  98.6% of where they started while the sleeper fell to 53%. Shortening
+  `stamp_days` relative to `epoch_days` would close it and open the
+  front-running hole instead.
 - **A heap is rarely emptied completely.** Your payout is pro rata on the
   *smaller* of your stake and the balance you hold when you collect, and a
   stamper is normally a few percent under their stake by then — a second stamp
