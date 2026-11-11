@@ -1,5 +1,8 @@
 # $ROT — the coin that spoils
 
+[![tests](https://github.com/HarryAnalyzer/rot/actions/workflows/ci.yml/badge.svg)](https://github.com/HarryAnalyzer/rot/actions/workflows/ci.yml)
+[![token page](https://img.shields.io/badge/token%20page-live-16a34a)](https://harryanalyzer.github.io/rot/)
+
 **A NEP-141 memecoin on NEAR whose balance falls on its own, and pays the
 holders who didn't let theirs.**
 
@@ -66,16 +69,19 @@ Three sinks, no faucet beyond the launch supply, and no mint function at all:
 
 ## Try it in 60 seconds
 
-No signup, no wallet connect, nothing to install:
+No signup, no wallet connect, nothing to install: open
+**<https://harryanalyzer.github.io/rot/>**.
+
+You get live contract state read straight off NEAR, and a **fast-forward
+playground** that runs sixty days of the economy in your browser using the same
+arithmetic the contract runs — drag the sliders and watch who ends up with the
+tokens.
+
+The same page runs from the repository with no network but the chain's:
 
 ```bash
 python -m http.server 8787 --directory web
 ```
-
-Open <http://localhost:8787>. You get live contract state, and a **fast-forward
-playground** that runs sixty days of the economy in your browser using the same
-arithmetic the contract runs — drag the sliders and watch who ends up with the
-tokens.
 
 To read the real thing straight off the chain, with nothing installed but
 `curl`:

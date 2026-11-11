@@ -1,0 +1,49 @@
+name: tests
+
+# The judging pipeline clones this repository and runs it. So does this, on
+# every push, in a container with nothing of the author's machine in it - the
+# green tick on the repository is the evidence that the README is reproducible
+# rather than a claim about it.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # No toolchain is installed here on purpose: rust-toolchain.toml pins
+      # one, and letting rustup honour it is the whole point.
+      - name: Show the pinned toolchain
+        run: cat rust-toolchain.toml
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: cargo test
+        run: cargo test
+
+      - name: Build the wasm
+        run: |
+          rustup target add wasm32-unknown-unknown
+          cargo build --target wasm32-unknown-unknown --release
+          ls -l target/wasm32-unknown-unknown/release/rot.wasm
+
+      - name: Run the 60-day simulation
+        run: python3 sim/simulate.py
+
+      # math.rs, simulate.py and web/model.js all claim to run the same
+      # arithmetic. If they ever drift, the simulation rewrites its own
+      # committed output and this step fails.
+      - name: The committed results must match a fresh run
+        run: |
+          if ! git diff --quiet; then
+            echo "A fresh simulation disagrees with the committed output:"
+            git diff --stat
+            exit 1
+          fi
+          echo "Clean: the numbers in README.md are the numbers the code produces."
