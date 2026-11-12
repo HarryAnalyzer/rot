@@ -134,36 +134,17 @@ be paid. A **mainnet** account, not the testnet one.
 **Description** (20–2,000 chars):
 
 ```
-$ROT is a NEP-141 memecoin whose balance is a function of the clock. An
-unstamped balance loses 2% of itself every day, compounding, and ft_balance_of
-returns the rotted figure — no keeper, no cron, no transaction needed for your
-balance to fall.
+$ROT is a NEP-141 memecoin whose balance rots. An unstamped balance loses 2% of itself every day, and ft_balance_of already returns the rotted figure — no keeper, no cron, no transaction needed.
 
-Everything that rots is paid out. stamp() burns 0.5% of your balance, shields
-the rest for seven days, and registers your weight in the NEXT epoch, so an
-epoch's weight is sealed before any compost lands in it and there is nothing to
-front-run. Anyone can poke anyone: rot only moves when an account is settled,
-which makes poking sleepers profitable and the economy self-driving. If nobody
-stamped for an epoch, its rot burns instead. Supply can only shrink.
+Rot is not destroyed, it is redistributed. stamp() burns 0.5% of your balance, shields it for 7 days, and registers you for the next epoch's compost heap. Everything that rots goes to the holders who stamped, pro rata. Anyone can poke a sleeper to push its rot into the heap. If nobody stamped, the rot burns. Supply can only shrink.
 
-It is the Wörgl experiment of 1932 — scrip that lost value unless you bought a
-stamp for it — as a memecoin, with the contract as the town clerk.
+It is the Wörgl experiment of 1932 — money that lost value unless you bought a stamp for it — with the contract as the town clerk.
 
-The mechanic lives entirely in the contract: no owner, no mint, no pause, no
-setter, and the account's access keys are deleted, so not even the deployer can
-change a parameter. The whole ruleset is ~150 lines of pure arithmetic in
-src/math.rs, shared by the contract, a stdlib-only 60-day simulation across five
-scenarios, and a browser model that lets the token page fast-forward the economy
-without touching a chain. Shared test vectors keep all three honest; cargo test
-asserts them, and the page shows a badge when its model agrees.
+No owner, no mint, no pause, no setters. Both contracts on testnet have zero access keys, so not even the deployer can change a rule (proof in the README). Splitting tokens across wallets gains nothing: rot and payouts are both proportional to balance.
 
-Sixty simulated days, half the holders stamping: stampers +46.9%, sleepers
-−70.2%, supply −8.1%. With nobody stamping at all, nothing breaks — the rot just
-burns. There is no state in which this token needs rescuing.
+The whole ruleset is ~150 lines in src/math.rs. 72 tests, CI green on every push, and a 60-day simulation: at 2% a day with half the holders stamping, stampers +46.9%, sleepers −70.2%.
 
-Sybil note, plainly: the demo faucet is farmable, but the mechanism is not —
-rot and rewards are both strictly proportional to balance, so N wallets holding
-X/N behave exactly like one wallet holding X. There is a test for it.
+Live page: https://harryanalyzer.github.io/rot/
 ```
 
 **Team size**: 1
