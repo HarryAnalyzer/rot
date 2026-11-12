@@ -10,13 +10,13 @@ automatically — every outward step is yours.
 
 ## 1. Before you post
 
-- [ ] `cargo test` passes
-- [ ] `python sim/simulate.py` runs and `sim/RESULTS.md` is up to date
-- [ ] both contracts deployed, `audit_supply` returns `true` on each
-- [ ] `web/config.js` points at the deployed account ids
-- [ ] `scripts/demo.ps1` ran end to end at least once
-- [ ] repo is **public** on GitHub with the LICENSE file
-- [ ] `scripts/lock.ps1` run **last**, keys deleted, `list-keys` returns empty
+- [x] `cargo test` passes — 72/72, also green in CI on a clean runner
+- [x] `python sim/simulate.py` runs and `sim/RESULTS.md` is up to date — CI fails if not
+- [x] both contracts deployed, `audit_supply` returns `true` on each
+- [x] `web/config.js` points at the deployed account ids
+- [x] `scripts/demo.ps1` ran end to end — four times, one of them recorded
+- [x] repo is **public** on GitHub with the LICENSE file
+- [x] keys deleted on both contracts; two RPC endpoints report 0 access keys
 
 Filled in:
 
@@ -24,7 +24,8 @@ Filled in:
 - real contract: `rot.worgl.testnet` — 2%/day, 7-day stamp, 7-day epochs
 - demo contract: `rot-demo.worgl.testnet` — 10%/day, 1 minute per day
 - repo: <https://github.com/HarryAnalyzer/rot>
-- page: served from `web/`; `python -m http.server 8787 --directory web`
+- page: <https://harryanalyzer.github.io/rot/>
+- video: `rot-demo-final.mp4` on the Desktop — 76.8 s, 1080p, captioned, scored
 
 Verified on 12 Nov 2026: 72/72 tests pass, both contracts deployed,
 `audit_supply` returns `true` on each, and a full faucet → stamp → rot → poke
@@ -69,19 +70,21 @@ Record it, then upload to X directly (video, not a link).
 Must say you built it at NEAR HACKATHON, tag **@NEARProtocol**, use
 **#NEARHackathon**, and carry the video.
 
+A standard X account allows **280 characters**, and every link counts as 23.
+This one is 272:
+
 ```
-Your memecoin's supply is a number. $ROT's balance is a function of the clock.
+$ROT: a memecoin you lose by holding.
 
-Leave it alone and it loses 2% a day — every token that rots is paid to
-the holders who stamped theirs that week. No mint, no owner, no keys.
+Leave it alone and it rots 2% a day. Stamp it and you collect what others lose. No owner, no keys.
 
-Austria tried this in 1932. It worked, so they banned it.
+Austria tried it in 1932. It worked, so they banned it.
 
 Built at NEAR HACKATHON @NEARProtocol #NEARHackathon
-<repo link>
+github.com/HarryAnalyzer/rot
 ```
 
-Alternates, if the first feels too long:
+Longer alternates, for an account with X Premium:
 
 ```
 I made a memecoin you can lose by doing nothing.

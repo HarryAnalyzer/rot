@@ -77,6 +77,15 @@ playground** that runs sixty days of the economy in your browser using the same
 arithmetic the contract runs — drag the sliders and watch who ends up with the
 tokens.
 
+Two links worth opening first:
+
+- **[A balance rotting in real time](https://harryanalyzer.github.io/rot/?account=sleeper.worgl.testnet)**
+  — the account from the demo video, which took 1,000 ROT from the faucet and
+  never touched it again. Refresh tomorrow and it will be lower.
+- **[The page on autopilot](https://harryanalyzer.github.io/rot/?tour)** — `?tour`
+  walks through every section on its own; it is how the demo video was filmed,
+  with nobody at the mouse.
+
 The same page runs from the repository with no network but the chain's:
 
 ```bash
@@ -138,6 +147,25 @@ per 100 KB of code, so the optimiser is worth about 0.5 NEAR per deployment.
 ```
 
 `lock.ps1` is what turns "no admin" from a claim into a fact. Run it last.
+
+### Both deployed contracts are locked
+
+The last access key on each contract account was deleted on 12 Nov 2026, after
+the demo was recorded:
+
+| contract | key deletion | access keys now |
+|---|---|---|
+| `rot.worgl.testnet` | [5MoMYBXg…](https://testnet.nearblocks.io/txns/5MoMYBXgV39Y42MVu6utg7bGXz8TSfQKucfP1utEV76y) | 0 |
+| `rot-demo.worgl.testnet` | [7GGqm8wG…](https://testnet.nearblocks.io/txns/7GGqm8wGAaNn7yw2PPejtsQF5jGpcmBjbMg77hqrxwLu) | 0 |
+
+Nobody can redeploy either contract or change a parameter — including us.
+Don't take that from this table; ask the chain:
+
+```bash
+curl -s https://rpc.testnet.near.org -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":1,"method":"query","params":{"request_type":"view_access_key_list","finality":"final","account_id":"rot.worgl.testnet"}}'
+```
+
+An empty `keys` list is the proof.
 
 ---
 

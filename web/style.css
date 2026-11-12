@@ -645,6 +645,26 @@ footer {
   font-size: 11px;
 }
 
+/* ?tour: the page drives itself, so there is no pointer or scrollbar to show,
+   and it is meant to be watched from a distance or a compressed video, so it
+   reads larger. */
+body.touring,
+body.touring * {
+  cursor: none !important;
+}
+html.touring {
+  scrollbar-width: none;
+}
+html.touring::-webkit-scrollbar {
+  display: none;
+}
+html.touring body {
+  zoom: 1.4;
+}
+html {
+  scroll-padding-top: 24px;
+}
+
 @media (max-width: 640px) {
   h1 {
     font-size: 27px;

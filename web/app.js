@@ -797,11 +797,16 @@
     $("accountInput").addEventListener("keydown", (e) => {
       if (e.key === "Enter") lookupAccount();
     });
-    const saved = localStorage.getItem("rot.account");
+    // ?account=<id> deep-links straight to an account; otherwise fall back to
+    // the last one looked up in this browser.
+    const params = new URLSearchParams(location.search);
+    const linked = params.get("account");
+    const saved = linked || localStorage.getItem("rot.account");
     if (saved) {
       $("accountInput").value = saved;
       state.accountId = saved;
     }
+    if (params.has("tour")) startTour(Number(params.get("tour")) || 1);
 
     $("onlyRotting").addEventListener("change", renderHolders);
     $("copyPoke").addEventListener("click", (e) => {
@@ -844,6 +849,41 @@
       if (state.account) renderAccount();
       if (state.accounts.length) renderHolders();
     }, 500);
+  }
+
+  // ---------------------------------------------------------------- tour
+
+  /**
+   * ?tour walks the page on its own: the balance, the token, the epochs, the
+   * holders, the event log, the playground, and round again. It exists so a
+   * screen recording needs nobody at the mouse - and so a page left open on a
+   * second monitor keeps showing the economy move.
+   * ?tour=2 runs it twice as slow.
+   */
+  function startTour(pace) {
+    document.documentElement.classList.add("touring");
+    document.body.classList.add("touring");
+    const at = (id) => () => {
+      const el = $(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    const stops = [
+      [() => window.scrollTo({ top: 0, behavior: "smooth" }), 14],
+      [at("accountGo"), 26],
+      [at("stats"), 14],
+      [at("epochs"), 10],
+      [at("holders"), 18],
+      [at("events"), 18],
+      [at("simSummary"), 14],
+    ];
+    let i = 0;
+    const next = () => {
+      const [go, seconds] = stops[i % stops.length];
+      go();
+      i++;
+      setTimeout(next, seconds * 1000 * pace);
+    };
+    setTimeout(next, 1500);
   }
 
   if (document.readyState === "loading") {

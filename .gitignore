@@ -17,3 +17,6 @@ testlog.txt
 Thumbs.db
 .vscode/
 .idea/
+
+# Screen recordings - local only, never part of the submission.
+/recording

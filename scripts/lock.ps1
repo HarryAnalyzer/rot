@@ -52,12 +52,17 @@ foreach ($account in $targets) {
   Write-Host "`n=== $account" -ForegroundColor Cyan
 
   $raw = near account list-keys $account network-config $Network now 2>&1 | Out-String
+  # A failed query must never read as "no keys": that would print a false
+  # proof of immutability. Only an answer that actually came back counts.
+  if ($LASTEXITCODE -ne 0 -or $raw -match 'Failed to fetch|error sending request') {
+    throw "could not read the keys of $account (RPC unreachable?) - nothing was changed"
+  }
   $keys = [regex]::Matches($raw, 'ed25519:[1-9A-HJ-NP-Za-km-z]{40,50}') |
     ForEach-Object { $_.Value } |
     Select-Object -Unique
 
   if (-not $keys) {
-    Write-Host "    no keys found - already locked" -ForegroundColor Green
+    Write-Host "    the chain reports no access keys - already locked" -ForegroundColor Green
     continue
   }
 
