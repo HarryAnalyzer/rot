@@ -79,9 +79,11 @@ tokens.
 
 Two links worth opening first:
 
-- **[A balance rotting in real time](https://harryanalyzer.github.io/rot/?account=sleeper.worgl.testnet)**
+- **[What doing nothing costs](https://harryanalyzer.github.io/rot/?account=sleeper.worgl.testnet)**
   — the account from the demo video, which took 1,000 ROT from the faucet and
-  never touched it again. Refresh tomorrow and it will be lower.
+  never touched it again. On the demo contract a day lasts a minute, so it has
+  been rotting at 10% a day ever since: within hours of the recording there was
+  almost nothing left. No transaction did that. The clock did.
 - **[The page on autopilot](https://harryanalyzer.github.io/rot/?tour)** — `?tour`
   walks through every section on its own; it is how the demo video was filmed,
   with nobody at the mouse.
